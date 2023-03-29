@@ -10,14 +10,30 @@ const Shop = () => {
     const [cart, setCart] =useState([])
 
     useEffect( () => {
-        fetch('https://raw.githubusercontent.com/ProgrammingHero1/ema-john-resources/main/fakeData/products.json')
+        fetch('products.json')
         .then(res => res.json())
         .then(data => setProducts(data))
     }, []);
-    useEffect( ()=>{
+
+    useEffect( () => {
         const storeCart = getShoppingCart();
-        console.log(storeCart);
-    }, [])
+        const savedCart = [];
+        //Step: 01 - get id of the addProduct
+        for(const id in storeCart){
+            // Step: 02- get the product by products state by using id
+            const addedProduct = products.find(product => product.id === id);
+            if(addedProduct){
+                // Step: 03- add product 
+                const quantity = storeCart[id];
+                addedProduct.quantity = quantity;
+                // Step: 04- add the added product to the saved cart
+                savedCart.push(addedProduct);
+            }
+            // Step: 05- set the cart
+            setCart(savedCart);
+            // console.log(addedProduct);
+        }
+    }, [products])
 
     const handleAddToCart = (product) => {
         const newCart =[...cart, product];
