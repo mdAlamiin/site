@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import Cart from '../Cart/Cart';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import './Orders.css';
 import { deleteShoppingCart, removeFromDb } from '../../utilities/fakedb';
@@ -36,7 +38,14 @@ const Orders = () => {
                 <Cart 
                     cart={cart}
                     handleClearCar={handleClearCar}
-                ></Cart>
+                >
+                    <Link className='proceed-link' to='/checkout'>
+                    <button className='btn-proceed'>
+                        Proceed Checkout
+                    <FontAwesomeIcon icon={faArrowAltCircleRight} />
+                    </button>
+                    </Link>
+                </Cart>
             </div>
         </div>
     );
